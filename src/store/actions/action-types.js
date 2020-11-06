@@ -1,0 +1,6 @@
+export const GET_MOVIES = 'GET_MOVIES';
+export const SET_LOADING = 'SET_LOADING';
+export const SET_SEASONS = 'SET_SEASONS';
+export const SET_MOVIES = 'SET_MOVIES';
+export const SET_TREENDING_MOVIES = 'SET_TREENDING_MOVIES';
+export const SET_TREENDING_SEASONS = 'SET_TREENDING_SEASONS';

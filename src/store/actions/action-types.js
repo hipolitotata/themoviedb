@@ -1,4 +1,4 @@
-export const GET_MOVIES = 'GET_MOVIES';
+export const GET_TREENDING = 'GET_TREENDING';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_SEASONS = 'SET_SEASONS';
 export const SET_MOVIES = 'SET_MOVIES';

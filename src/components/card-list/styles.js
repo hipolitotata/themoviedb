@@ -1,20 +1,21 @@
 import styled from 'styled-components';
 
 export const Container = styled.View`
-    width: 100%;
+  width: 100%;
 `;
 
 export const Title = styled.Text`
-    color: #fff;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 5px 10px ;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 5px 10px;
 `;
 
 export const Cards = styled.ScrollView.attrs({
   horizontal: true,
   alwaysBounceHorizontal: true,
-  bouncesZoom: true
+  bouncesZoom: true,
+  contentContainerStyle: {flexGrow: 1, justifyContent: 'center'},
 })``;
 
 export const Card = styled.TouchableOpacity`

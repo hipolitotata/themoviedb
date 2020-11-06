@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   Container,
@@ -7,60 +7,53 @@ import {
   TextInput,
   Header,
   Body,
-  Cancel,
-  CancelText,
   Search,
   SearchButton,
 } from './styles';
 
 import CardList from '../../components/card-list';
 import Icon from 'react-native-vector-icons/Feather';
+import {useDispatch, useSelector} from 'react-redux';
+import {getTreending} from '../../store/actions/movies.actions';
 
 export default function TabBar(props) {
-  const [search, setSearch] = useState(false);
+  const dispatch = useDispatch();
+
+  const {treendingMovies} = useSelector((state) => state.moviesReducer);
+
+  useEffect(() => {
+    dispatch(
+      getTreending({
+        type_movie: 'movie',
+      }),
+    );
+  }, []);
 
   return (
     <Container>
-
       <Header>
-          <Logo
-            resizeMode="cover"
-            source={{
-              uri:
-                'https://download.logo.wine/logo/Netflix/Netflix-Logo.wine.png',
-            }}
-          />
-          <SearchButton onPress={() => setSearch(true)}>
-            <Icon name="user" color="#fff" size={25} />
-          </SearchButton>
+        <Logo
+          resizeMode="cover"
+          source={{
+            uri:
+              'https://download.logo.wine/logo/Netflix/Netflix-Logo.wine.png',
+          }}
+        />
+        <SearchButton>
+          <Icon name="user" color="#fff" size={25} />
+        </SearchButton>
       </Header>
 
       <Search>
-          <Field>
-            <Icon
-              onPress={() => setSearch(false)}
-              name="arrow-left"
-              color="#fff"
-              size={20}
-            />
-            <TextInput
-              placeholder="Pesquise por filmes"
-              placeholderTextColor="#fff"
-            />
-          </Field>
-          <Cancel onPress={() => setSearch(false)}>
-            <CancelText>Cancelar</CancelText>
-          </Cancel>
+        <Field>
+          <TextInput
+            placeholder="Pesquise por filmes"
+            placeholderTextColor="#fff"
+          />
+        </Field>
       </Search>
 
-      <Body>
-        <CardList />
-        <CardList />
-        <CardList />
-        <CardList />
-        <CardList />
-        <CardList />
-      </Body>
+      <Body>{<CardList title="Em alta" list={treendingMovies} />}</Body>
     </Container>
   );
 }

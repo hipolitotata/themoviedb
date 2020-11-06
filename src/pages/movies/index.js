@@ -14,19 +14,19 @@ import {
 import CardList from '../../components/card-list';
 import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
-import {getTreending} from '../../store/actions/movies.actions';
+import {getGenres, getTreending} from '../../store/actions/movies.actions';
+
+const type_movie = 'movie';
 
 export default function TabBar(props) {
   const dispatch = useDispatch();
-
-  const {treendingMovies} = useSelector((state) => state.moviesReducer);
+  const {treendingMovies, genresMovies} = useSelector(
+    (state) => state.moviesReducer,
+  );
 
   useEffect(() => {
-    dispatch(
-      getTreending({
-        type_movie: 'movie',
-      }),
-    );
+    dispatch(getTreending({type_movie}));
+    dispatch(getGenres({type_movie}));
   }, []);
 
   return (
@@ -53,7 +53,12 @@ export default function TabBar(props) {
         </Field>
       </Search>
 
-      <Body>{<CardList title="Em alta" list={treendingMovies} />}</Body>
+      <Body>
+        {<CardList title="Em alta" list={treendingMovies} />}
+        {genresMovies.map((genre) => {
+          return <CardList title={genre.name} list={[]} />;
+        })}
+      </Body>
     </Container>
   );
 }

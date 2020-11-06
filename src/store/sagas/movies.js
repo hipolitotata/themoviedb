@@ -1,16 +1,16 @@
 import {call, put, all} from 'redux-saga/effects';
-import {setLoading} from '../actions/utils.actions';
 import {
   setTreendingSeasons,
   setTreendingMovies,
+  setGenresMovie,
+  setGenresSeasons,
 } from '../actions/movies.actions';
+
 import api, {api_key} from '../../services/api';
 
+const language = 'pt-br';
+
 export function* getTreending({payload}) {
-  //   yield put(setLoading(true));
-
-  const language = 'pt-br';
-
   try {
     const request = () =>
       api.get(
@@ -26,7 +26,28 @@ export function* getTreending({payload}) {
       yield all([put(setTreendingSeasons(data.results))]);
     }
   } catch (error) {
-  } finally {
-    yield put(setLoading(false));
+    console.log('ERROR RESPONSE');
+  }
+}
+
+export function* getGenres({payload}) {
+  try {
+    const request = () =>
+      api.get(
+        `/genre/${type_movie}/list?api_key=${api_key}&language=${language}`,
+      );
+    const {data} = yield call(request);
+
+    console.log('DATA:::::::::::::::::::', data);
+
+    if (payload.type_movie === 'movie') {
+      yield all([put(setGenresMovie(data.genres))]);
+    }
+
+    if (payload.type_movie === 'tv') {
+      yield all([put(setGenresSeasons(data.genres))]);
+    }
+  } catch (error) {
+    console.log('ERROR RESPONSE');
   }
 }

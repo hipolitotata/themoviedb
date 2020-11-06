@@ -34,11 +34,9 @@ export function* getGenres({payload}) {
   try {
     const request = () =>
       api.get(
-        `/genre/${type_movie}/list?api_key=${api_key}&language=${language}`,
+        `/genre/${payload.type_movie}/list?api_key=${api_key}&language=${language}`,
       );
     const {data} = yield call(request);
-
-    console.log('DATA:::::::::::::::::::', data);
 
     if (payload.type_movie === 'movie') {
       yield all([put(setGenresMovie(data.genres))]);
@@ -48,6 +46,6 @@ export function* getGenres({payload}) {
       yield all([put(setGenresSeasons(data.genres))]);
     }
   } catch (error) {
-    console.log('ERROR RESPONSE');
+    console.log('ERROR RESPONSE', error);
   }
 }

@@ -16,7 +16,9 @@ export const Cards = styled.ScrollView.attrs({
   alwaysBounceHorizontal: true,
   bouncesZoom: true,
   contentContainerStyle: {flexGrow: 1, justifyContent: 'center'},
-})``;
+})`
+  min-height: 150px;
+`;
 
 export const Card = styled.TouchableOpacity`
   width: 100px;

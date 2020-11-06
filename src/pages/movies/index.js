@@ -5,19 +5,24 @@ import {Container, Logo, Header, Body, OptionsUser} from '../../global-styles';
 import CardList from '../../components/card-list';
 import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
-import {getTreending} from '../../store/actions/movies.actions';
+import {getTreending, getDiscover} from '../../store/actions/movies.actions';
 
 const type_movie = 'movie';
 
 export default function TabBar(props) {
   const dispatch = useDispatch();
-  const {treendingMovies, genresMovies} = useSelector(
+  const {treendingMovies, genresMovies, movies} = useSelector(
     (state) => state.moviesReducer,
   );
 
   useEffect(() => {
     dispatch(getTreending({type_movie}));
+    dispatch(getDiscover({type_movie}));
   }, []);
+
+  function getDiscoveryByGenre(discovery, genreId) {
+    return discovery.filter((item) => item.genre_ids.includes(genreId));
+  }
 
   return (
     <Container>
@@ -37,7 +42,9 @@ export default function TabBar(props) {
       <Body>
         {<CardList title="Em alta" list={treendingMovies} />}
         {genresMovies.map((genre, key) => {
-          return <CardList key={key} title={genre.name} list={[]} />;
+          const discovery = getDiscoveryByGenre(movies, genre.id);
+          if (discovery.length === 0) return;
+          return <CardList key={key} title={genre.name} list={discovery} />;
         })}
       </Body>
     </Container>

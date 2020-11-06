@@ -7,10 +7,16 @@ import {
   SET_TREENDING_SEASONS,
   SET_GENRES_MOVIES,
   SET_GENRES_SEASONS,
+  GET_DISCOVER,
 } from './action-types';
 
 export const setSeasons = (payload) => ({
   type: SET_SEASONS,
+  payload,
+});
+
+export const getDiscover = (payload) => ({
+  type: GET_DISCOVER,
   payload,
 });
 

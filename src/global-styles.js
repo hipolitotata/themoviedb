@@ -14,20 +14,8 @@ export const Header = styled.View`
   justify-content: space-between;
 `;
 
-export const Search = styled.View`
-  height: 50px;
-  padding: 0 20px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom-width: 0.5px;
-  border-bottom-color: #a6a6a6;
-`;
+export const OptionsUser = styled.TouchableOpacity`
 
-export const SearchButton = styled.TouchableOpacity`
-  height: 100%;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const Logo = styled.Image`

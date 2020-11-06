@@ -21,7 +21,7 @@ export default function CardList(props) {
           props.list.length !== 0 &&
           (props.list || []).map((movie, key) => {
             return (
-              <Card onPress={() => {}}>
+              <Card key={key} onPress={() => {}}>
                 <CardImage source={{uri: imagePrefix + movie.backdrop_path}} />
               </Card>
             );

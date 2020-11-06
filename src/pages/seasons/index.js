@@ -1,32 +1,22 @@
 import React, {useEffect, useState} from 'react';
 
-import {
-  Container,
-  Logo,
-  Field,
-  TextInput,
-  Header,
-  Body,
-  Search,
-  SearchButton,
-} from './styles';
+import {Container, Logo, Header, Body, OptionsUser} from '../../global-styles';
 
 import CardList from '../../components/card-list';
 import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
 import {getTreending} from '../../store/actions/movies.actions';
 
+const type_movie = 'tv';
+
 export default function TabBar(props) {
   const dispatch = useDispatch();
-
-  const {treendingSeasons} = useSelector((state) => state.moviesReducer);
+  const {treendingSeasons, genresSeasons} = useSelector(
+    (state) => state.moviesReducer,
+  );
 
   useEffect(() => {
-    dispatch(
-      getTreending({
-        type_movie: 'tv',
-      }),
-    );
+    dispatch(getTreending({type_movie}));
   }, []);
 
   return (
@@ -39,21 +29,17 @@ export default function TabBar(props) {
               'https://download.logo.wine/logo/Netflix/Netflix-Logo.wine.png',
           }}
         />
-        <SearchButton>
+        <OptionsUser>
           <Icon name="user" color="#fff" size={25} />
-        </SearchButton>
+        </OptionsUser>
       </Header>
 
-      <Search>
-        <Field>
-          <TextInput
-            placeholder="Pesquise por seriados"
-            placeholderTextColor="#fff"
-          />
-        </Field>
-      </Search>
-
-      <Body>{<CardList title="Em alta" list={treendingSeasons} />}</Body>
+      <Body>
+        {<CardList title="Em alta" list={treendingSeasons} />}
+        {genresSeasons.map((genre, key) => {
+          return <CardList key={key} title={genre.name} list={[]} />;
+        })}
+      </Body>
     </Container>
   );
 }

@@ -1,19 +1,18 @@
 import * as React from 'react';
-import {Text} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import TabBar from "../components/tab-bar";
+import TabBar from './tab.routes';
+import SplashScreen from '../pages/splash-screen';
 
-import Movies from "../pages/movies"
-import Seasons from "../pages/seasons"
-
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function Routes() {
   return (
-    <Tab.Navigator tabBar={(content) => <TabBar tabs={content} />}>
-      <Tab.Screen name="Movies" component={Movies} />
-      <Tab.Screen name="Seasons" component={Seasons} />
-    </Tab.Navigator>
+    <Stack.Navigator
+      headerMode="none"
+      tabBar={(content) => <TabBar tabs={content} />}>
+      <Stack.Screen name="SplashScreen" component={SplashScreen} />
+      <Stack.Screen name="TabBar" component={TabBar} />
+    </Stack.Navigator>
   );
 }

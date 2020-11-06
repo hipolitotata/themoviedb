@@ -1,20 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
-import {
-  Container,
-  Logo,
-  Field,
-  TextInput,
-  Header,
-  Body,
-  Search,
-  SearchButton,
-} from './styles';
+import {Container, Logo, Header, Body, OptionsUser} from '../../global-styles';
 
 import CardList from '../../components/card-list';
 import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
-import {getGenres, getTreending} from '../../store/actions/movies.actions';
+import {getTreending} from '../../store/actions/movies.actions';
 
 const type_movie = 'movie';
 
@@ -26,7 +17,6 @@ export default function TabBar(props) {
 
   useEffect(() => {
     dispatch(getTreending({type_movie}));
-    dispatch(getGenres({type_movie}));
   }, []);
 
   return (
@@ -39,24 +29,15 @@ export default function TabBar(props) {
               'https://download.logo.wine/logo/Netflix/Netflix-Logo.wine.png',
           }}
         />
-        <SearchButton>
+        <OptionsUser>
           <Icon name="user" color="#fff" size={25} />
-        </SearchButton>
+        </OptionsUser>
       </Header>
-
-      <Search>
-        <Field>
-          <TextInput
-            placeholder="Pesquise por filmes"
-            placeholderTextColor="#fff"
-          />
-        </Field>
-      </Search>
 
       <Body>
         {<CardList title="Em alta" list={treendingMovies} />}
-        {genresMovies.map((genre) => {
-          return <CardList title={genre.name} list={[]} />;
+        {genresMovies.map((genre, key) => {
+          return <CardList key={key} title={genre.name} list={[]} />;
         })}
       </Body>
     </Container>

@@ -7,7 +7,7 @@ import {getGenres, setDeviceLanguage} from '../../store/actions/movies.actions';
 
 import {NativeModules, Platform} from 'react-native';
 
-const deviceLanguage =
+const getDeviceLanguage =
   Platform.OS === 'ios'
     ? NativeModules.SettingsManager.settings.AppleLocale ||
       NativeModules.SettingsManager.settings.AppleLanguages[0]
@@ -15,13 +15,20 @@ const deviceLanguage =
 
 export default function TabBar({navigation}) {
   const dispatch = useDispatch();
+  const {deviceLanguage} = useSelector((state) => state.moviesReducer);
   const moviesReducer = useSelector((state) => state.moviesReducer);
 
   useEffect(() => {
-    dispatch(setDeviceLanguage(deviceLanguage));
-    dispatch(getGenres({type_movie: 'movie'}));
-    dispatch(getGenres({type_movie: 'tv'}));
+    const language = getDeviceLanguage.toLowerCase().replace('_', '-');
+    dispatch(setDeviceLanguage(language));
   }, []);
+
+  useEffect(() => {
+    if (deviceLanguage) {
+      dispatch(getGenres({type_movie: 'movie'}));
+      dispatch(getGenres({type_movie: 'tv'}));
+    }
+  }, [deviceLanguage]);
 
   useEffect(() => {
     if (

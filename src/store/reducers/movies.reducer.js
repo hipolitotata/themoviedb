@@ -19,7 +19,7 @@ const initialState = {
   seasons: [],
   genresMovies: [],
   genresSeasons: [],
-  languageDevice: 'pt-br',
+  deviceLanguage: 'pt-br',
 };
 
 export default (state = initialState, action) => {
@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
     case SET_LANGUAGE:
       return {
         ...state,
-        languageDevice: action.payload,
+        deviceLanguage: action.payload,
       };
     default:
       return state;

@@ -8,10 +8,28 @@ import {
   SET_GENRES_MOVIES,
   SET_GENRES_SEASONS,
   GET_DISCOVER,
+  LOADING_SEARCH,
+  GET_DISCOVERY_SEARCH,
+  SET_DISCOVERY_SEARCH
 } from './action-types';
 
 export const setSeasons = (payload) => ({
   type: SET_SEASONS,
+  payload,
+});
+
+export const findDiscovery = (payload) => ({
+  type: GET_DISCOVERY_SEARCH,
+  payload,
+});
+
+export const setSearchDiscovery = (payload) => ({
+  type: SET_DISCOVERY_SEARCH,
+  payload,
+});
+
+export const setLoadingSearch = (payload) => ({
+  type: LOADING_SEARCH,
   payload,
 });
 

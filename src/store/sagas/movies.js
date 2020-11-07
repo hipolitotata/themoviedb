@@ -6,6 +6,8 @@ import {
   setGenresSeasons,
   setMovies,
   setSeasons,
+  setLoadingSearch,
+  setSearchDiscovery,
 } from '../actions/movies.actions';
 
 import api, {api_key} from '../../services/api';
@@ -69,5 +71,23 @@ export function* getDiscover({payload}) {
     }
   } catch (error) {
     console.log('ERROR RESPONSE', error);
+  }
+}
+
+export function* findDiscovery({payload}) {
+  yield put(setLoadingSearch(true));
+  console.log('bateu aqui');
+  try {
+    const request = () =>
+      api.get(
+        `/discover/tv?api_key=${api_key}&language=${language}&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false`,
+      );
+    const {data} = yield call(
+      request);
+  } catch (error) {
+    console.log('ERROR RESPONSE', error);
+  } finally {
+    yield put(setSearchDiscovery([1, 2, 3, 4]));
+    yield put(setLoadingSearch(false));
   }
 }

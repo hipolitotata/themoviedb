@@ -5,9 +5,13 @@ import {
   SET_TREENDING_SEASONS,
   SET_GENRES_MOVIES,
   SET_GENRES_SEASONS,
+  LOADING_SEARCH,
+  SET_DISCOVERY_SEARCH,
 } from '../actions/action-types';
 
 const initialState = {
+  loadingSearch: false,
+  discoverySearch: [],
   treendingMovies: [],
   movies: [],
   treendingSeasons: [],
@@ -47,6 +51,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         genresSeasons: action.payload,
+      };
+    case LOADING_SEARCH:
+      return {
+        ...state,
+        loadingSearch: action.payload,
+      };
+    case SET_DISCOVERY_SEARCH:
+      return {
+        ...state,
+        discoverySearch: action.payload,
       };
     default:
       return state;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import DelayInput from 'react-native-debounce-input';
 
 export const Header = styled.View`
   height: 80px;
@@ -19,7 +20,7 @@ export const SearchField = styled.View`
   background-color: #2e2e2e;
 `;
 
-export const SearchInput = styled.TextInput`
+export const SearchInput = styled(DelayInput)`
   width: 88%;
   color: #fff;
 `;
@@ -51,5 +52,9 @@ export const Card = styled.View`
   width: 28.6%;
   height: 200px;
   margin: 10px;
-  background-color: blue;
+`;
+
+export const CardImage = styled.Image`
+  width: 100%;
+  height: 100%;
 `;

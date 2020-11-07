@@ -8,6 +8,7 @@ import {
   setSeasons,
   setLoadingSearch,
   setSearchDiscovery,
+  findDiscovery as findDiscoveryAC,
 } from '../actions/movies.actions';
 
 import api, {api_key} from '../../services/api';
@@ -76,18 +77,33 @@ export function* getDiscover({payload}) {
 
 export function* findDiscovery({payload}) {
   yield put(setLoadingSearch(true));
-  console.log('bateu aqui');
+  yield put(setSearchDiscovery([]));
+
+  if (payload.search === '') return yield put(setLoadingSearch(false));
+
   try {
-    const request = () =>
+    const seasonsRequest = () =>
       api.get(
-        `/discover/tv?api_key=${api_key}&language=${language}&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false`,
+        `/search/tv?query=${payload.search}&api_key=${api_key}&language=${language}&page=1&include_adult=false`,
       );
-    const {data} = yield call(
-      request);
+
+    const moviesRequest = () =>
+      api.get(
+        `/search/movie?query=${payload.search}&api_key=${api_key}&language=${language}&page=1&include_adult=false`,
+      );
+
+    const [seasons, movies] = yield all([
+      call(seasonsRequest),
+      call(moviesRequest),
+    ]);
+
+    const data = [...movies.data.results, ...seasons.data.results];
+
+    yield put(setSearchDiscovery(data));
   } catch (error) {
+    yield put(findDiscoveryAC({search: payload.search}));
     console.log('ERROR RESPONSE', error);
   } finally {
-    yield put(setSearchDiscovery([1, 2, 3, 4]));
     yield put(setLoadingSearch(false));
   }
 }

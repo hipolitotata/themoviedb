@@ -6,7 +6,7 @@ Icon.loadFont();
 
 import {Container, Loading, Title, Cards, Card, CardImage} from './styles';
 
-const imagePrefix = 'https://image.tmdb.org/t/p/w440_and_h660_face';
+import {IMAGE_PREFIX as _} from '../../constants';
 
 export default function CardList(props) {
   return (
@@ -21,9 +21,10 @@ export default function CardList(props) {
       {props.list && props.list.length !== 0 && (
         <Cards>
           {props.list.map((movie, key) => {
+            if (!movie.backdrop_path) return;
             return (
               <Card key={key} onPress={() => {}}>
-                <CardImage source={{uri: imagePrefix + movie.backdrop_path}} />
+                <CardImage source={{uri: _ + movie.backdrop_path}} />
               </Card>
             );
           })}

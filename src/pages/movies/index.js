@@ -11,7 +11,7 @@ const type_movie = 'movie';
 
 export default function TabBar(props) {
   const dispatch = useDispatch();
-  const {treendingMovies, genresMovies, movies} = useSelector(
+  const {treendingMovies, genresMovies, movies, deviceLanguage} = useSelector(
     (state) => state.moviesReducer,
   );
 
@@ -40,7 +40,12 @@ export default function TabBar(props) {
       </Header>
 
       <Body>
-        {<CardList title="Em alta" list={treendingMovies} />}
+        {
+          <CardList
+            title={deviceLanguage === 'pt-br' ? 'Em alta' : 'Treending'}
+            list={treendingMovies}
+          />
+        }
         {genresMovies.map((genre, key) => {
           const discovery = getDiscoveryByGenre(movies, genre.id);
           if (discovery.length === 0) return;

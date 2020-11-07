@@ -20,7 +20,7 @@ import {findDiscovery} from '../../store/actions/movies.actions';
 import {IMAGE_PREFIX as _} from '../../constants';
 
 export default function TabBar(props) {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(null);
 
   const {loadingSearch, discoverySearch} = useSelector(
     (state) => state.moviesReducer,
@@ -49,7 +49,7 @@ export default function TabBar(props) {
           <Icons>
             {loadingSearch && <ActivityIndicator size={15} color="#fff" />}
 
-            <IconButton onPress={() => setSearch('')}>
+            <IconButton onPress={() => setSearch(null)}>
               <Icon name="closecircle" size={20} color="#fff" />
             </IconButton>
           </Icons>

@@ -7,6 +7,7 @@ import {
   SET_GENRES_SEASONS,
   LOADING_SEARCH,
   SET_DISCOVERY_SEARCH,
+  SET_LANGUAGE
 } from '../actions/action-types';
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   seasons: [],
   genresMovies: [],
   genresSeasons: [],
+  languageDevice: 'pt-br',
 };
 
 export default (state = initialState, action) => {
@@ -61,6 +63,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         discoverySearch: action.payload,
+      };
+    case SET_LANGUAGE:
+      return {
+        ...state,
+        languageDevice: action.payload,
       };
     default:
       return state;

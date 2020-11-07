@@ -19,8 +19,8 @@ export default function App() {
   LogBox.ignoreAllLogs();
   return (
     <Provider store={Store}>
+      <StatusBar backgroundColor="#242424" />
       <NavigationContainer>
-        <StatusBar background="#242424" />
         <Routes />
       </NavigationContainer>
     </Provider>

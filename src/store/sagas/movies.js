@@ -1,4 +1,4 @@
-import {call, put, all} from 'redux-saga/effects';
+import {call, put, all, select} from 'redux-saga/effects';
 import {
   setTreendingSeasons,
   setTreendingMovies,
@@ -13,13 +13,13 @@ import {
 
 import api, {api_key} from '../../services/api';
 
-const language = 'pt-br';
-
 export function* getTreending({payload}) {
+  const {moviesReducer} = yield select();
+
   try {
     const request = () =>
       api.get(
-        `/discover/${payload.type_movie}?api_key=${api_key}&language=${language}&sort_by=popularity.desc&page=200&timezone=America%2FNew_York&include_null_first_air_dates=false`,
+        `/discover/${payload.type_movie}?api_key=${api_key}&language=${moviesReducer.deviceLanguage}&sort_by=popularity.desc&page=200&timezone=America%2FNew_York&include_null_first_air_dates=false`,
       );
     const {data} = yield call(request);
 
@@ -36,10 +36,12 @@ export function* getTreending({payload}) {
 }
 
 export function* getGenres({payload}) {
+  const {moviesReducer} = yield select();
+
   try {
     const request = () =>
       api.get(
-        `/genre/${payload.type_movie}/list?api_key=${api_key}&language=${language}`,
+        `/genre/${payload.type_movie}/list?api_key=${api_key}&language=${moviesReducer.deviceLanguage}`,
       );
     const {data} = yield call(request);
 
@@ -56,10 +58,12 @@ export function* getGenres({payload}) {
 }
 
 export function* getDiscover({payload}) {
+  const {moviesReducer} = yield select();
+
   try {
     const request = () =>
       api.get(
-        `/discover/${payload.type_movie}?api_key=${api_key}&language=${language}&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false`,
+        `/discover/${payload.type_movie}?api_key=${api_key}&language=${moviesReducer.deviceLanguage}&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false`,
       );
     const {data} = yield call(request);
 
@@ -76,6 +80,8 @@ export function* getDiscover({payload}) {
 }
 
 export function* findDiscovery({payload}) {
+  const {moviesReducer} = yield select();
+
   yield put(setLoadingSearch(true));
   yield put(setSearchDiscovery([]));
 
@@ -84,12 +90,12 @@ export function* findDiscovery({payload}) {
   try {
     const seasonsRequest = () =>
       api.get(
-        `/search/tv?query=${payload.search}&api_key=${api_key}&language=${language}&page=1&include_adult=false`,
+        `/search/tv?query=${payload.search}&api_key=${api_key}&language=${moviesReducer.deviceLanguage}&page=1&include_adult=false`,
       );
 
     const moviesRequest = () =>
       api.get(
-        `/search/movie?query=${payload.search}&api_key=${api_key}&language=${language}&page=1&include_adult=false`,
+        `/search/movie?query=${payload.search}&api_key=${api_key}&language=${moviesReducer.deviceLanguage}&page=1&include_adult=false`,
       );
 
     const [seasons, movies] = yield all([

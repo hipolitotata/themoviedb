@@ -22,6 +22,7 @@ export const Cards = styled.ScrollView.attrs({
   horizontal: true,
   alwaysBounceHorizontal: true,
   bouncesZoom: true,
+  showsHorizontalScrollIndicator: false,
 })`
   width: 100%;
   min-height: 150px;

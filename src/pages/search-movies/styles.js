@@ -46,11 +46,12 @@ export const Cards = styled.View`
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const Card = styled.View`
-  width: 28.6%;
-  height: 200px;
+  width: 26%;
+  height: 180px;
   margin: 10px;
 `;
 

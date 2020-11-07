@@ -10,11 +10,17 @@ import {
   GET_DISCOVER,
   LOADING_SEARCH,
   GET_DISCOVERY_SEARCH,
-  SET_DISCOVERY_SEARCH
+  SET_DISCOVERY_SEARCH,
+  SET_LANGUAGE
 } from './action-types';
 
 export const setSeasons = (payload) => ({
   type: SET_SEASONS,
+  payload,
+});
+
+export const setDeviceLanguage = (payload) => ({
+  type: SET_LANGUAGE,
   payload,
 });
 

@@ -18,8 +18,15 @@ export default function TabBar({navigation, route}) {
           <Icon name="arrow-left" size={25} color="#fff" />
         </BackButton>
       </Header>
-      <ImageMovie source={{uri: _ + movie.poster_path}} />
-      <Title>{movie.title}</Title>
+      <ImageMovie
+        source={{uri: _ + movie.poster_path || movie.backdrop_path}}
+      />
+      <Title>
+        {movie.name ||
+          movie.original_name ||
+          movie.title ||
+          movie.original_title}
+      </Title>
 
       <StarRating
         containerStyle={{paddingHorizontal: 80, paddingVertical: 10}}

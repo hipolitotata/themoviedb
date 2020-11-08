@@ -19,7 +19,7 @@ import {findDiscovery} from '../../store/actions/movies.actions';
 
 import {IMAGE_PREFIX as _} from '../../constants';
 
-export default function TabBar(props) {
+export default function TabBar({navigation}) {
   const [search, setSearch] = useState(null);
 
   const {loadingSearch, discoverySearch} = useSelector(
@@ -61,7 +61,9 @@ export default function TabBar(props) {
           {discoverySearch.map((item, key) => {
             if (!item.backdrop_path) return;
             return (
-              <Card key={key}>
+              <Card
+                onPress={() => navigation.navigate('Details', {movie: item})}
+                key={key}>
                 <CardImage source={{uri: _ + item.backdrop_path}} />
               </Card>
             );

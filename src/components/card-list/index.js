@@ -23,7 +23,9 @@ export default function CardList(props) {
           {props.list.map((movie, key) => {
             if (!movie.backdrop_path) return;
             return (
-              <Card key={key} onPress={() => {}}>
+              <Card
+                key={key}
+                onPress={() => props.navigation.navigate('Details', {movie})}>
                 <CardImage source={{uri: _ + movie.backdrop_path}} />
               </Card>
             );

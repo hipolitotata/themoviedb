@@ -5,11 +5,15 @@ import {Container, Logo, Header, Body, OptionsUser} from '../../global-styles';
 import CardList from '../../components/card-list';
 import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
-import {getTreending, getDiscover} from '../../store/actions/movies.actions';
+import {
+  getTreending,
+  getDiscover,
+  setCurrentDiscover,
+} from '../../store/actions/movies.actions';
 
 const type_movie = 'tv';
 
-export default function TabBar(props) {
+export default function TabBar({navigation}) {
   const dispatch = useDispatch();
   const {treendingSeasons, genresSeasons, seasons} = useSelector(
     (state) => state.moviesReducer,
@@ -22,6 +26,11 @@ export default function TabBar(props) {
 
   function getDiscoveryByGenre(discovery, genreId) {
     return discovery.filter((item) => item.genre_ids.includes(genreId));
+  }
+
+  function goToDetails(item) {
+    dispatch(setCurrentDiscover(item));
+    navigation.navigate('Details');
   }
 
   return (
@@ -40,11 +49,24 @@ export default function TabBar(props) {
       </Header>
 
       <Body>
-        {<CardList title="Em alta" list={treendingSeasons} />}
+        {
+          <CardList
+            navigation={navigation}
+            title="Em alta"
+            list={treendingSeasons}
+          />
+        }
         {genresSeasons.map((genre, key) => {
           const discovery = getDiscoveryByGenre(seasons, genre.id);
           if (discovery.length === 0) return;
-          return <CardList key={key} title={genre.name} list={discovery} />;
+          return (
+            <CardList
+              navigation={navigation}
+              key={key}
+              title={genre.name}
+              list={discovery}
+            />
+          );
         })}
       </Body>
     </Container>

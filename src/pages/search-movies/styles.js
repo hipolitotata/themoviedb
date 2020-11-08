@@ -49,7 +49,7 @@ export const Cards = styled.View`
   justify-content: center;
 `;
 
-export const Card = styled.View`
+export const Card = styled.TouchableOpacity`
   width: 26%;
   height: 180px;
   margin: 10px;

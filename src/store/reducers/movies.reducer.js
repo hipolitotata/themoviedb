@@ -7,7 +7,7 @@ import {
   SET_GENRES_SEASONS,
   LOADING_SEARCH,
   SET_DISCOVERY_SEARCH,
-  SET_LANGUAGE
+  SET_LANGUAGE,
 } from '../actions/action-types';
 
 const initialState = {

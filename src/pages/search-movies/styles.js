@@ -7,6 +7,8 @@ export const Header = styled.View`
   width: 100%;
   justify-content: center;
   padding: 0 10px;
+
+  padding-top: 60px;
 `;
 
 export const SearchField = styled.View`

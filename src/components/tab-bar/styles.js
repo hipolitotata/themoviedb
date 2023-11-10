@@ -5,6 +5,7 @@ export const Tabs = styled.View`
   left: 0;
   right: 0;
   bottom: 0;
+  padding-bottom: 40px;
   flex-direction: row;
   justify-content: space-around;
   border-top-left-radius: 30px;
